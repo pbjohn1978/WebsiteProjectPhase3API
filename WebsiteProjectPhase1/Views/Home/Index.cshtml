@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home Page</h2>
+
+<div>
+    @{ 
+        if (WebsiteProjectPhase1.Models.SessionHelper.IsMemberLoggedIn())
+        {
+            <h1 style="color:@WebsiteProjectPhase1.Models.SessionHelper.GetMember().TextColor">@WebsiteProjectPhase1.Models.SessionHelper.GetMember().DesplayMessage</h1>
+        }
+        else
+        {
+            <h1> Hello new person... .. . if you're not new login above... .. .</h1>
+        }
+     }
+        <table style="width:100%">
+            <tr>
+                <th>@ViewBag.weather.name</th>
+                <th>Min Temp</th>
+                <th>Max Temp</th>
+                <th>Coordinates</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td>@ViewBag.weather.main.temp_min Kelvin</td>
+                <td>@ViewBag.weather.main.temp_max Kelvin</td>
+                <td>@ViewBag.weather.coord.lat | @ViewBag.weather.coord.lon</td>
+            </tr>
+            <tr>
+                @{
+                    double FMaxTemp = (@ViewBag.weather.main.temp_max * ((double)9 / 5)) - 459.67;
+                    double FMinTemp = @ViewBag.weather.main.temp_min * ((double)9 / 5) - 459.67;
+                }
+                <td></td>
+                <td>@FMinTemp Fahrenheit</td>
+                <td>@FMaxTemp Fahrenheit</td>
+                <td>@ViewBag.weather.coord.lat | @ViewBag.weather.coord.lon</td>
+            </tr>
+        </table>
+</div>

@@ -1,0 +1,58 @@
+﻿
+    @{
+        ViewBag.Title = "Index";
+    }
+    <div style="color:@ViewBag.txt;">
+        <br /><br />
+        <h2>Members</h2>
+        <table style="width:100%">
+            <tr>
+                <th>ID Number</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>BG Color</th>
+                <th>Text Color</th>
+                <th>Message</th>
+                <th>Access Level</th>
+                <th style="color:red;">Delete</th>
+            </tr>
+            @{
+                foreach (var item in ViewBag.haha)
+                {
+                    <tr>
+                        <th>@item.UserID</th>
+                        <th>@item.Username</th>
+                        <th>@item.Password</th>
+                        <th>@item.BackgroundColor</th>
+                        <th>@item.TextColor</th>
+                        <th>@item.DesplayMessage</th>
+                        <th>@item.AccessLevel</th>
+                        @{
+                            if (WebsiteProjectPhase1.Models.SessionHelper.GetMember().UserID != item.UserID)
+                            {
+                                <th>@Html.ActionLink("Delete User", "Index", "Delete", new { UserID = item.UserID }, null)</th>
+                            }
+                            else
+                            {
+                                <th>you can't delete yourself :)</th>
+                            }
+                        }
+
+                    </tr>
+                            }
+            }
+        </table>
+        <ul>
+            @{
+                if (ViewBag.pagenum == null)
+                {
+                    <li> @Html.ActionLink("Next Page", "Index", "Admin", new { id = 1 }, null)</li>
+                }
+                else
+                {
+                    <li> @Html.ActionLink("Next Page", "Index", "Admin", new { id = ((int) ViewBag.pagenum)+1 }, null)</li>
+                }
+             }
+
+        </ul>
+    </div>

@@ -1,0 +1,74 @@
+﻿@model WebsiteProjectPhase1.Models.SiteMember
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+@{
+    if (Request.Cookies["user"] != null && WebsiteProjectPhase1.Models.HelperDB.IsCookieValid(Request.Cookies["user"].Value))
+    {
+        WebsiteProjectPhase1.Models.SiteMember mem = WebsiteProjectPhase1.Models.HelperDB.GetSiteMemFromCookieCode(Request.Cookies["user"].Value);
+        Session["MemberName"] = mem.Username;
+    }
+}
+@{  
+    string bg = "white";
+    string txt = "black";
+    if (WebsiteProjectPhase1.Models.SessionHelper.IsMemberLoggedIn())
+    {
+        bg = WebsiteProjectPhase1.Models.SessionHelper.GetMember().BackgroundColor;
+        txt = WebsiteProjectPhase1.Models.SessionHelper.GetMember().TextColor;
+    }
+}
+<body style="background-color:@bg; color:@txt;">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Home!!!", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @{
+                        if (WebsiteProjectPhase1.Models.SessionHelper.IsMemberLoggedIn())
+                        {
+                            <li class="btn btn-primary">@Html.ActionLink("Logout!!!", "Index", "Logout")</li>
+                            <li class="btn btn-primary">@Html.ActionLink("Update Profile or Change Password", "ModifyUserInfo", "Register")</li>
+                            if (Request.Cookies["user"] == null)
+                            {
+                                <li class="btn btn-primary">@Html.ActionLink("Remember Me (makes cookie)", "Index", "CookieMaker")</li>
+                            }
+                            if (WebsiteProjectPhase1.Models.SessionHelper.IsAdminSession())
+                            {
+                                <li class="btn btn-primary">@Html.ActionLink("ADMIN PAGES", "Index", "Admin")</li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="btn btn-primary">@Html.ActionLink("Register!!!", "Index", "Register")</li>
+                            <li class="btn btn-primary">@Html.ActionLink("Login", "Index", "Login")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

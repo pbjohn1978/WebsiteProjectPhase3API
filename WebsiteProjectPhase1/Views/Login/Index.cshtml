@@ -1,0 +1,19 @@
+﻿@model WebsiteProjectPhase1.Models.LoginViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.DisplayName("User Name:")<br/>
+        @Html.TextBoxFor(model => model.Username)
+        <br /><br />
+        @Html.DisplayName("Password: ")<br />
+        @Html.TextBoxFor(model => model.Password)
+        <br /><br />
+        <input type="submit" value="Login" />
+    }
+</div>

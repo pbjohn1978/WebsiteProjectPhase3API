@@ -1,0 +1,33 @@
+﻿@model WebsiteProjectPhase1.Models.SiteMember
+@{
+    ViewBag.Title = "ModifyUserInfo";
+}
+
+<h2>Modify User Info Page</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.DisplayName("User Name:")<br />
+        @Html.TextBoxFor(model => model.Username, new { placeholder = Model.Username } )
+        <br /><br />
+        @Html.DisplayName("Password:")<br />
+        @Html.TextBoxFor(model => model.Password,  new { placeholder = Model.Password } )
+        <br /><br />
+        @Html.DisplayName("Confirm Password:")<br />
+        @Html.TextBoxFor(model => model.ConfirmPassword, new { placeholder = Model.Password } )
+        <br /><br />
+        @Html.DisplayName("Background color:")<br />
+        <p style="margin:2px;padding:0px;">the acceceptable colors are: aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow</p>
+        @Html.TextBoxFor(model => model.BackgroundColor, new { placeholder = Model.BackgroundColor } )
+        <br /><br />
+        @Html.DisplayName("Website Text Color (must not be the same as background color):")<br />
+        <p style="margin:2px;padding:0px;">the acceceptable colors are: aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow</p>
+        @Html.TextBoxFor(model => model.TextColor, new { placeholder = Model.TextColor } )
+        <br /><br />
+        @Html.DisplayName("What message do you want to greet you when you log on?")<br />
+        @Html.TextAreaFor(model => model.DesplayMessage, new { placeholder = Model.DesplayMessage } )
+        <br /><br />
+        <input type="submit" value="Update Site Member Info" />
+    }
+</div>
