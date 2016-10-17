@@ -13,6 +13,7 @@ namespace WebsiteProjectPhase1.Controllers
         {   
             ///this is the gaurd to keep out all people except admins
             ///ignore this line... its only a test comment... .. .
+            ///new comment... 
             if(!Models.SessionHelper.IsAdminSession())
                 return RedirectToAction("Index", "Login");
             //this gets the current users text color and sends it in a viewbag to the view
